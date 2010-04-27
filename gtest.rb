@@ -90,10 +90,10 @@ class GTest
     other_failures = yates_correct(other_failures, expected_other_failures)
 
     if g_statistic.nil?
-      g_statistic = 2 * ( winning_successes * Math::log(winning_successes / expected_winning_successes) + \
-                          winning_failures * Math::log(winning_failures / expected_winning_failures) +    \
-                          other_successes * Math::log(other_successes / expected_other_successes) +      \
-                          other_failures * Math::log(other_failures / expected_other_failures) )
+      g_statistic = 2 * ( g_statistic_expected(winning_successes, expected_winning_successes) + \
+                          g_statistic_expected(winning_failures, expected_winning_failures) + \
+                          g_statistic_expected(other_successes, expected_other_successes) + \
+                          g_statistic_expected(other_failures, expected_other_failures))
     end
 
     chi_prob = Chi_Prob.new
@@ -111,6 +111,11 @@ class GTest
       end
     end
     actual
+  end
+
+  private
+  def g_statistic_expected(group_measure, expected_group_measure)
+    return group_measure * Math::log(group_measure / expected_group_measure)
   end
 end
 
