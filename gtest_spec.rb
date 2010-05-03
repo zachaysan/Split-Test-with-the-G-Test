@@ -177,5 +177,11 @@ describe GTest do
     sample_gtest = generate_gtest_scenario(1)
     lambda { broken_gtest = GTest.new sample_gtest }.should raise_error(GTestException)  
   end
+  it "should properly calculate expected measures (private method)" do
+    sample_gtest = generate_gtest_scenario(2)
+    gtest = GTest.new sample_gtest
+    priv_expected = gtest.send(:g_statistic_expected, 255.5, 200.0)
+    ((priv_expected*10_000).round.to_f / 10_000).should == 62.5732
+  end
 end
 

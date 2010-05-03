@@ -46,7 +46,7 @@ class GTest
   def ensure_minimum(winning_successes, winning_failures, other_successes, other_failures)
     # setting min failures to min successes is on purpose. 
     # I don't think it is worth confusing people over the difference
-    # because 99.9999% of the time people will worry about 
+    # because most of the time people will worry about 
     # min_successes over min_failures
     @min_failures = @min_successes 
     custom_g_stat = nil
@@ -101,6 +101,9 @@ class GTest
     return g_statistic, confidence
   end
   def yates_correct(actual, expected)
+    # the purpose of the yates_correction is to adjust for the fact that most
+    # measurements are discrete, so there is an inherient bias towards the mean
+    # that usually needs to be corrected for. 
     if @yates == :on
       if expected + 0.5 < actual
         actual -= 0.5
