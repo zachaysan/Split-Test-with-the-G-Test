@@ -1,5 +1,4 @@
-
-require 'chi_prob.rb'
+require File.expand_path(File.join(File.dirname(__FILE__),'chi_prob.rb'))
 
 class GTestException < Exception
 end

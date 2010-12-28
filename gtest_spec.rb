@@ -1,4 +1,5 @@
-require 'gtest'
+require File.expand_path(File.join(File.dirname(__FILE__),'gtest.rb'))
+
 module GTestHelperMethods
   def generate_gtest_scenario(number_of_groups)
     split_test_hash = {}
