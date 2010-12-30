@@ -42,6 +42,22 @@ class GTest
     end
     return @split_group_results
   end
+  def for_humans
+    message = "Your split test results:"
+    ordered_results = compare_split_groups.sort {|a,b| a[1][1] <=> b[1][1]}
+    ordered_results.each_with_index do |result, index|
+      if index == 0
+        message += "\n #{result[0]} was the winning split group by which we measure all other split groups"
+      elsif result[1][1] < 0.90
+        message += "\n #{result[0]} doesn't have a large enough sample size to conclusively say that there is a measurable difference. Either keep testing, or decide it isn't a test that will likely earn you anything an move on. It's currently at #{result[1][1]*100.0}% confidence"
+      elsif result[1][1] >= 0.90 and result[1][1] < 0.99
+        message += "\n #{result[0]} is getting closer to being dropped, but we cannot be reasonablly certain as it has #{(result[1][1]*1000.0).to_i/10.0}% confidence"
+      elsif result[1][1] >= 0.99
+        message += "\n #{result[0]} didn't do so well, we can drop it from testing with a #{(result[1][1]*1000.0).to_i/10.0}+% confidence"
+      end
+    end
+    message
+  end
   def ensure_minimum(winning_successes, winning_failures, other_successes, other_failures)
     # setting min failures to min successes is on purpose. 
     # I don't think it is worth confusing people over the difference
