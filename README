@@ -1,10 +1,6 @@
 Big thanks to Ben Tilly for providing a coding base to start from and a most informative
 online slideshow found at elem.com/~btilly/effective-ab-testing/
 
-NOTE: This works great except for the massive chi probability ruby file that I hacked together 
-      after I suffered from too much floating point loss while trying to recode the chi prob
-      in Ruby. 
-
 This repository calculates confidences for multiple split groups against the current winner
 
 Input might look like this:
