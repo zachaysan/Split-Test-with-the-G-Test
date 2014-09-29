@@ -131,7 +131,8 @@ class GTest
     actual
   end
 
-  private
+  protected
+  
   def g_statistic_expected(group_measure, expected_group_measure)
     return group_measure * Math::log(group_measure / expected_group_measure)
   end
